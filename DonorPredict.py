@@ -1,22 +1,35 @@
 import pandas as pd
 
-# Read the Excel file into a DataFrame
-filePath = /LastMile/TestExcel.xlsx
+# Read in an input of a date
+dateInput = input("Enter the date (YYYY-MM-DD): ")
 
 # Read the Excel file into a DataFrame
-df = pd.read_excel(filePath)
+filePath = "Last Mile Food Rescues_rescue overview.csv"
 
-#Reads in the date column to a DataFrame
-dateDF = pd.read_excel(filePath, usecols=['AI'])
+# Read the Excel file into a DataFrame
+df = pd.read_csv(filePath, low_memory=False)
 
-#Renames the column from AI to Date
-df.rename(columns={'AI': 'Date'}, inplace = True)
+# Reads in the date column to a DataFrame
+dateDF = pd.read_csv(filePath, usecols=["rescue_date"])
 
 # Converts the Date DataFrame to datetime
-df['Date'] = pd.to_datetime(df['Date'])
+df["rescue_date"] = pd.to_datetime(df["rescue_date"])
 
-#Defines the specific date to filter by
-specificDate = pd.to_datetime('2024-05-15')
+# Method that takes the date input and filters results
+
+
+def filterByDate(dateInput):
+    # Defines the specific date to filter by
+    specificDate = pd.to_datetime(dateInput)
+
+    # Creates a new DataFrame with results matching the inputed date
+    filteredRows = df[df["rescue_date"] == specificDate]
+
+    return filteredRows
+
+
+# Creates a new DataFrame using the filterByDate method
+filteredRows = filterByDate(dateInput)
 
 # Display the DataFrame
-print(dateDF)
+print(filteredRows)

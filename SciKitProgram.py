@@ -1,19 +1,39 @@
+import numpy as np
 import pandas as pd
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, mean_squared_error, r2_score
 
 # Load the data
 def load_data(file_path):
     data = pd.read_csv(file_path)
-    data.dropna(inplace=True)
-    #data.fillna('None', inplace=True)
-    # NEED to fill in 0 for numericals and none for categoricals
-    return data
+    df1 = pd.read_csv("Weather.csv")
+    df2 = pd.read_csv("LastMile.csv")
+
+    count = df2['date'].value_counts()['12/29/21']
+    print (count)
+
+    df2['volunteers'] = df2.groupby('date')['date'].transform('count')
+    print(df2)
     
+    data = pd.merge(df1, df2, on='date')
+    data = data.drop_duplicates(subset='date')
+    print(data)
+
+    data['preciptype'].fillna('none', inplace=True)
+    data['windgust'].fillna(0, inplace=True)
+    data['severerisk'].fillna(0, inplace=True)
+    data = data[['volunteers', 'temp', 'precipprob', 'windgust']]
+    #data.fillna('none', inplace=True) 
+    data.dropna(inplace=True)
+    
+    
+    return data
+
 
 # Preprocess the data
 def preprocess_data(data, target_column):
@@ -54,22 +74,25 @@ def create_pipeline(categorical_cols, numerical_cols):
 def train_and_evaluate(X, y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
-    model = create_pipeline(X.select_dtypes(include=['object']).columns, X.select_dtypes(include=['int64', 'float64']).columns)
+    #model = create_pipeline(X.select_dtypes(include=['object']).columns, X.select_dtypes(include=['int64', 'float64']).columns)
+    model = LogisticRegression()
     model.fit(X_train, y_train)
     
     # Predictions
     y_pred = model.predict(X_test)
     
     # Evaluation
-    print("Accuracy:", accuracy_score(y_test, y_pred))
+    score = accuracy_score(y_test,y_pred)
+    print(confusion_matrix(y_test, y_pred))
     print(classification_report(y_test, y_pred))
+    print(score)
 
 # Main execution
 if __name__ == "__main__":
     file_path = 'Weather.csv'
     
     data = load_data(file_path)
-    target_column = 'date'  
+    target_column = 'volunteers'  
     
     X, y, categorical_cols, numerical_cols = preprocess_data(data, target_column)
     train_and_evaluate(X, y)

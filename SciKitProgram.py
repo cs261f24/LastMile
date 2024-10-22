@@ -1,3 +1,4 @@
+import joblib
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
@@ -15,22 +16,21 @@ def load_data(file_path):
     df2 = pd.read_csv("LastMile.csv")
 
     count = df2['date'].value_counts()['12/29/21']
-    print (count)
+    #print (count)
 
     df2['volunteers'] = df2.groupby('date')['date'].transform('count')
-    print(df2)
+    #print(df2)
     
     data = pd.merge(df1, df2, on='date')
     data = data.drop_duplicates(subset='date')
-    print(data)
 
     data['preciptype'].fillna('none', inplace=True)
     data['windgust'].fillna(0, inplace=True)
     data['severerisk'].fillna(0, inplace=True)
-    data = data[['volunteers', 'temp', 'precipprob', 'windgust']]
+    data = data[['temp', 'precipprob', 'windgust', 'volunteers']]
     #data.fillna('none', inplace=True) 
     data.dropna(inplace=True)
-    
+    print(data)
     
     return data
 
@@ -73,9 +73,7 @@ def create_pipeline(categorical_cols, numerical_cols):
 # Train and evaluate the model
 def train_and_evaluate(X, y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
-    #model = create_pipeline(X.select_dtypes(include=['object']).columns, X.select_dtypes(include=['int64', 'float64']).columns)
-    model = LogisticRegression()
+    model = LogisticRegression(penalty='l1', C=0.01, solver='liblinear', max_iter=1000)
     model.fit(X_train, y_train)
     
     # Predictions
@@ -83,9 +81,22 @@ def train_and_evaluate(X, y):
     
     # Evaluation
     score = accuracy_score(y_test,y_pred)
-    print(confusion_matrix(y_test, y_pred))
-    print(classification_report(y_test, y_pred))
-    print(score)
+    #print(confusion_matrix(y_test, y_pred))
+    #print(classification_report(y_test, y_pred))
+    #print(score)
+
+    filename = 'finalized_model.plk'
+    joblib.dump(model, filename)
+
+# Predict Volunteers with Parameters
+def predict_volunteers(temp, precipprob, windgust):
+    features = np.array([[temp, precipprob, windgust]])
+    model = joblib.load('finalized_model.plk')
+    prediction = model.predict(features)
+    print(prediction)
+
+    return prediction[0]
+
 
 # Main execution
 if __name__ == "__main__":
@@ -96,3 +107,6 @@ if __name__ == "__main__":
     
     X, y, categorical_cols, numerical_cols = preprocess_data(data, target_column)
     train_and_evaluate(X, y)
+
+    predict_volunteers(1, 57, 0)
+    

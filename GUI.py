@@ -1,6 +1,29 @@
 import tkinter
 from tkinter import *
 import tkinter as tk
+import time
+
+# For sports API 
+import json
+from pip import _vendor
+import pip._vendor.requests
+API_KEY = '14b80439951ab21af79d41a1c8856a57'
+from Sports_API import *
+from Sports_API import params
+from Sports_API import url
+
+# for traffic API
+import pip._vendor.requests as requests
+from Traffic_API import *
+from Traffic_API import get_traffic_data
+from Traffic_API import get_travel_delays
+from Traffic_API import BASE_URL
+
+# function to refresh dashboard
+def update_label():
+    current_time = time.strftime("%H:%M:%S")
+    label.config(text=current_time)
+    dash.after(1000, update_label)
 
 # Create main dashboard = tk.Tk()
 dash = tk.Tk()
@@ -26,13 +49,13 @@ today.pack(
     side="top",
     fill="both",
 )
-daylabel = tk.Label(
+label = tk.Label(
     today,
-    text="Todays Date",
+    text="",
     bg="#a2cf8c",
     font=("Arial", 20)
 )
-daylabel.pack(
+label.pack(
     pady=5,
     side="top"
 )
@@ -106,7 +129,10 @@ tempLow.pack(
 
 # --------------------------------------------------------------------------------------------
 
-# section 2 will be traffic
+# section 2 will be traffic/sports
+
+# Making the request
+response = _vendor.requests.get(url, params=params)
 
 section2 = tk.Frame(
     LeftMainFrame,
@@ -121,24 +147,70 @@ section2.pack(
 )
 section2.pack_propagate(False)
 
-trafficCond = tk.Label(
-    section2,
-    text="Game Day",
-    bg="#a2cf8c",
-    font=("Times", 30)
+if response.status_code == 200:
+    odds_data = response.json()
+    trafficTitle = tk.Label(
+        section2,
+        wraplength=250,
+        text="Game Day Delays",
+        bg="#a2cf8c",
+        fg="Red",
+        font=("Times", 30)
+    )
+else:
+    trafficTitle = tk.Label(
+        section2,
+        text="Minimal Delays",
+        bg="#a2cf8c",
+        font=("Times", 30)
+    )
+trafficTitle.pack(
+    pady=3,
 )
-trafficCond.pack(
-    pady=10,
-)
-games = tk.Label(
-    section2,
-    text="game info",
-    bg="#a2cf8c",
-    font=("Times", 25)
-)
+
+if response.status_code == 200:
+    odds_data = response.json()
+    for game in odds_data:
+        home_team = game.get('home_team')
+        away_team = game.get('away_team')
+
+        if 'Cincinnati Bengals' in (home_team, away_team):
+            games = tk.Label(
+                section2,
+                # This is the max line length before it splits into a new line
+                wraplength=300,
+                # THIS IS WHAT IS BEING PRINTED v
+                text=f"{home_team} vs {away_team} " + f"{game['commence_time']} ",
+                bg="#a2cf8c",
+                font=("Times", 15)
+            )
+else:
+    games = tk.Label(
+        section2,
+        wraplength=300,
+        text=f"Failed to fetch Bengals Game, Status Code: {response.status_code}",
+        bg="#a2cf8c",
+        font=("Times", 15)
+    )
 games.pack(
-    pady=10,
+    pady=3,
 )
+
+# Delays
+travel_delays_data = get_travel_delays()
+if travel_delays_data:
+    delays = tk.Label(
+        section2,
+        wraplength=300,
+        # Alter Line below when specific data has been found for traffic data
+        text="\nTravel Delays Data:" + json.dumps(travel_delays_data, indent=4),
+        bg="#a2cf8c",
+        font=("Times", 10)
+    )
+delays.pack(
+    pady=3
+)
+
 
 # ---------------------------------------------------------------------------------------------
 
@@ -184,6 +256,7 @@ AbsentVolunteers = tk.Label(
 AbsentVolunteers.pack(
     pady=10,
 )
+
 
 # ----------------------------------------------------------------------------------------------
 
@@ -583,6 +656,7 @@ day7Est.pack(
     pady=3
 )
 
+update_label()
 
 # runs the code
 dash.mainloop()

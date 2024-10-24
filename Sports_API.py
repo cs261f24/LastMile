@@ -19,14 +19,8 @@ params = {
 # Making the request
 response = _vendor.requests.get(url, params=params)
 
-# Read in an input of a date
-dateInput = input("Enter the date (YYYY-MM-DD): ")
-
 # Array to hold the dates of the Bengals Games
 bengalsGame = []
-
-# Array to hold the formatted Bengals Games
-formattedBengalsGames = []
 
 # Check if the request was successful
 if response.status_code == 200:
@@ -47,10 +41,11 @@ if response.status_code == 200:
 else:
     print(f"Failed to fetch Bengals Game, Status Code: {response.status_code}")
 
+
 # Function converts date into more manageable format
 
 
-def convertGame(bengalsGame):
+def convertGame(bengalsGame, formattedBengalsGames):
     for x in bengalsGame:
 
         # Convert to a datetime object
@@ -65,14 +60,18 @@ def convertGame(bengalsGame):
     # Returns bengalsGame with the dates formatted as strings
 
 
-# Variable that holds the propely formatted game date
-convertGame(bengalsGame)
-
 # Function checks if there is a home game on a specific date and returns true
 # if there is
 
 
-def conflictCheck(formattedBengalsGames, dateInput):
+def conflictCheck(bengalsGame, dateInput):
+
+    # Array to hold the formatted Bengals Games
+    formattedBengalsGames = []
+
+    # Variable that holds the propely formatted game date
+    convertGame(bengalsGame, formattedBengalsGames)
+
     for x in formattedBengalsGames:
 
         # Compare the dates
@@ -82,7 +81,3 @@ def conflictCheck(formattedBengalsGames, dateInput):
 
     # Returns False if none of the dates match
     return False
-
-
-# Prints the results of the conflict check function
-print(conflictCheck(formattedBengalsGames, dateInput))

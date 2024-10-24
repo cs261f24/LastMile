@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from pip import _vendor
 import pip._vendor.requests
@@ -10,13 +11,16 @@ url = 'https://api.the-odds-api.com/v4/sports/americanfootball_nfl/events?apiKey
 params = {
     'apiKey': API_KEY,
     'regions': 'us',  # Regions US
-    'markets': 'h2h,spreads', 
-    'oddsFormat': 'decimal',  
-    'dateFormat': 'iso',     
+    'markets': 'h2h,spreads',
+    'oddsFormat': 'decimal',
+    'dateFormat': 'iso',
 }
 
 # Making the request
 response = _vendor.requests.get(url, params=params)
+
+# Array to hold the dates of the Bengals Games
+bengalsGame = []
 
 # Check if the request was successful
 if response.status_code == 200:
@@ -30,5 +34,50 @@ if response.status_code == 200:
             print(f"Game: {home_team} vs {away_team}")
             print(f"Date: {game['commence_time']}")
             print('---')
+
+            # Adds the dates of games to a an array
+            bengalsGame.append(game['commence_time'])
+
 else:
     print(f"Failed to fetch Bengals Game, Status Code: {response.status_code}")
+
+
+# Function converts date into more manageable format
+
+
+def convertGame(bengalsGame, formattedBengalsGames):
+    for x in bengalsGame:
+
+        # Convert to a datetime object
+        dateTimeObject = datetime.strptime(x, "%Y-%m-%dT%H:%M:%SZ")
+
+        # Format it to only include the date part
+        modifiedDate = dateTimeObject.strftime("%Y-%m-%d")
+
+        # Adds the modified date to a seperate array
+        formattedBengalsGames.append(modifiedDate)
+
+    # Returns bengalsGame with the dates formatted as strings
+
+
+# Function checks if there is a home game on a specific date and returns true
+# if there is
+
+
+def conflictCheck(bengalsGame, dateInput):
+
+    # Array to hold the formatted Bengals Games
+    formattedBengalsGames = []
+
+    # Variable that holds the propely formatted game date
+    convertGame(bengalsGame, formattedBengalsGames)
+
+    for x in formattedBengalsGames:
+
+        # Compare the dates
+        if x == dateInput:
+            # Returns true if a date matches
+            return True
+
+    # Returns False if none of the dates match
+    return False

@@ -64,7 +64,7 @@ def convertGame(bengalsGame, formattedBengalsGames):
 # if there is
 
 
-def conflictCheck(bengalsGame, dateInput):
+def conflictCheck(dateInput):
 
     # Array to hold the formatted Bengals Games
     formattedBengalsGames = []

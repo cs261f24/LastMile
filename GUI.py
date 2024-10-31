@@ -19,11 +19,6 @@ from Traffic_API import get_traffic_data
 from Traffic_API import get_travel_delays
 from Traffic_API import BASE_URL
 
-# function to refresh dashboard
-def update_label():
-    current_time = time.strftime("%H:%M:%S")
-    label.config(text=current_time)
-    dash.after(1000, update_label)
 
 # Create main dashboard = tk.Tk()
 dash = tk.Tk()
@@ -656,7 +651,6 @@ day7Est.pack(
     pady=3
 )
 
-update_label()
 
 # runs the code
 dash.mainloop()

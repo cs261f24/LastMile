@@ -9,6 +9,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, mean_squared_error, r2_score
 
+
 # Load the data
 def load_data(file_path):
     data = pd.read_csv(file_path)
@@ -89,8 +90,9 @@ def train_and_evaluate(X, y):
     joblib.dump(model, filename)
 
 # Predict Volunteers with Parameters
-def predict_volunteers(temp, precipprob, windgust):
-    features = np.array([[temp, precipprob, windgust]])
+def predict_volunteers(precipprob, temp, windgust):
+    features = np.array([[precipprob,temp, windgust]])
+    print(features)
     model = joblib.load('finalized_model.plk')
     prediction = model.predict(features)
     print(prediction)
@@ -108,5 +110,5 @@ if __name__ == "__main__":
     X, y, categorical_cols, numerical_cols = preprocess_data(data, target_column)
     train_and_evaluate(X, y)
 
-    predict_volunteers(1, 57, 0)
+    predict_volunteers(60, 70, 1)
     

@@ -45,18 +45,21 @@ if __name__ == '__main__':
     # Get construction data
     construction_data = get_construction(location)
     if construction_data:
+        construction_descriptions = [item.get('description', 'No description') for item in construction_data.get('results', [])]
         print("Construction Data:")
-        print(json.dumps(construction_data, indent=4))
+        print(json.dumps(construction_description, indent=4))
 
     # Get incidents data
     incidents_data = get_incidents(location)
     if incidents_data:
+        incidents_descriptions = [item.get('description', 'No description') for item in incidents_data.get('results', [])]
         print("\nIncidents Data:")
-        print(json.dumps(incidents_data, indent=4))
+        print(json.dumps(incidents_description, indent=4))
 
     # Get travel delays data
     travel_delays_data = get_travel_delays(location)
     if travel_delays_data:
+        travel_description = [item.get('description', 'No description') for item in travel_delays_data.get('results', [])]
         print("\nTravel Delays Data:")
-        print(json.dumps(travel_delays_data, indent=4))
+        print(json.dumps(travel_delays_description, indent=4))
 

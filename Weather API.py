@@ -41,7 +41,9 @@ def display_forecast(forecast_data):
     
     print(f"Weather Forecast for Cincinnati, OH:\n")
     for period in periods:
-        print(f"{period['name']}: {period['detailedForecast']}\n")
+        print(f"{period['name']}: {period['probabilityOfPrecipitation']}\n")
+        print(f"{period['name']}: {period['temperature']}\n")
+       
 
 if __name__ == "__main__":
     Real_forecast = get_weather_data(latitude, longitude)

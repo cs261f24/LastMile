@@ -1,24 +1,26 @@
+from datetime import datetime, timedelta
+from Traffic_API import BASE_URL
+from Traffic_API import get_travel_delays
+from Traffic_API import get_traffic_data
+from Traffic_API import *
+import pip._vendor.requests as requests
+from Sports_API import url
+from Sports_API import params
+from Sports_API import *
 import tkinter
 from tkinter import *
 import tkinter as tk
 import time
 
-# For sports API 
+# For sports API
 import json
 from pip import _vendor
 import pip._vendor.requests
 API_KEY = '14b80439951ab21af79d41a1c8856a57'
-from Sports_API import *
-from Sports_API import params
-from Sports_API import url
 
 # for traffic API
-import pip._vendor.requests as requests
-from Traffic_API import *
-from Traffic_API import get_traffic_data
-from Traffic_API import get_travel_delays
-from Traffic_API import BASE_URL
 
+# For accurate dates
 
 # Create main dashboard = tk.Tk()
 dash = tk.Tk()
@@ -34,7 +36,7 @@ dash.title("Last Mile Dashboard")
 # dash.iconphoto(True, pic)
 
 # ------------------------------------------------------------------------------------------
-# Day screen 
+# Day screen
 today = tk.Frame(
     dash,
     height=20,
@@ -175,7 +177,8 @@ if response.status_code == 200:
                 # This is the max line length before it splits into a new line
                 wraplength=300,
                 # THIS IS WHAT IS BEING PRINTED v
-                text=f"{home_team} vs {away_team} " + f"{game['commence_time']} ",
+                text=f"{home_team} vs {away_team} " + \
+                f"{game['commence_time']} ",
                 bg="#a2cf8c",
                 font=("Times", 15)
             )
@@ -183,7 +186,8 @@ else:
     games = tk.Label(
         section2,
         wraplength=300,
-        text=f"Failed to fetch Bengals Game, Status Code: {response.status_code}",
+        text=f"Failed to fetch Bengals Game, Status Code: {
+            response.status_code}",
         bg="#a2cf8c",
         font=("Times", 15)
     )
@@ -198,7 +202,8 @@ if travel_delays_data:
         section2,
         wraplength=300,
         # Alter Line below when specific data has been found for traffic data
-        text="\nTravel Delays Data:" + json.dumps(travel_delays_data, indent=4),
+        text="\nTravel Delays Data:" + \
+        json.dumps(travel_delays_data, indent=4),
         bg="#a2cf8c",
         font=("Times", 10)
     )
@@ -304,11 +309,13 @@ bottomFrame.pack(
 
 # -------------------------------------------------------------------------------------------
 
+today = datetime.today().date()
+
 # smaller frames for the days of the week
 day1 = tk.Frame(
     bottomFrame,
     bg="#a2cf8c",
-    )
+)
 day1.pack(
     side="left",
     expand=True,
@@ -319,7 +326,7 @@ day1.pack(
 day1.pack_propagate(False)
 day1date = tk.Label(
     day1,
-    text="\u26C8 Date", wraplength=150,
+    text=today, wraplength=150,
     bg="#a2cf8c",
     font=("Times", 20)
 )
@@ -332,8 +339,8 @@ day1Hazard = tk.Label(
     bg="#a2cf8c",
     font=("Times", 15)
 )
-day1Hazard.pack(  
-    pady=3 
+day1Hazard.pack(
+    pady=3
 )
 day1High = tk.Label(
     day1,
@@ -354,11 +361,12 @@ day1Est.pack(
     pady=3
 )
 
+today += timedelta(days=1)
 
 day2 = tk.Frame(
     bottomFrame,
     bg="#a2cf8c"
-    )
+)
 day2.pack(
     side="left",
     expand=True,
@@ -368,7 +376,7 @@ day2.pack(
 day2.pack_propagate(False)
 day2date = tk.Label(
     day2,
-    text="\u26C8 Date", wraplength=150,
+    text=today, wraplength=150,
     bg="#a2cf8c",
     font=("Times", 20)
 )
@@ -403,11 +411,12 @@ day2Est.pack(
     pady=3
 )
 
+today += timedelta(days=1)
 
 day3 = tk.Frame(
     bottomFrame,
     bg="#a2cf8c",
-    )
+)
 day3.pack(
     side="left",
     expand=True,
@@ -418,7 +427,7 @@ day3.pack(
 day3.pack_propagate(False)
 day3date = tk.Label(
     day3,
-    text="\u26C8 Date", wraplength=150,
+    text=today, wraplength=150,
     bg="#a2cf8c",
     font=("Times", 20)
 )
@@ -453,11 +462,12 @@ day3Est.pack(
     pady=3
 )
 
+today += timedelta(days=1)
 
 day4 = tk.Frame(
     bottomFrame,
     bg="#a2cf8c"
-    )
+)
 day4.pack(
     side="left",
     expand=True,
@@ -467,7 +477,7 @@ day4.pack(
 day4.pack_propagate(False)
 day4date = tk.Label(
     day4,
-    text="\u26C8 Date", wraplength=150,
+    text=today, wraplength=150,
     bg="#a2cf8c",
     font=("Times", 20)
 )
@@ -502,11 +512,12 @@ day4Est.pack(
     pady=3
 )
 
+today += timedelta(days=1)
 
 day5 = tk.Frame(
     bottomFrame,
     bg="#a2cf8c",
-    )
+)
 day5.pack(
     side="left",
     expand=True,
@@ -517,7 +528,7 @@ day5.pack(
 day5.pack_propagate(False)
 day5date = tk.Label(
     day5,
-    text="\u26C8 Date", wraplength=150,
+    text=today, wraplength=150,
     bg="#a2cf8c",
     font=("Times", 20)
 )
@@ -552,11 +563,12 @@ day5Est.pack(
     pady=3
 )
 
+today += timedelta(days=1)
 
 day6 = tk.Frame(
     bottomFrame,
     bg="#a2cf8c",
-    )
+)
 day6.pack(
     side="left",
     expand=True,
@@ -566,7 +578,7 @@ day6.pack(
 day6.pack_propagate(False)
 day6date = tk.Label(
     day6,
-    text="\u26C8 Date", wraplength=150,
+    text=today, wraplength=150,
     bg="#a2cf8c",
     font=("Times", 20)
 )
@@ -601,11 +613,12 @@ day6Est.pack(
     pady=3
 )
 
+today += timedelta(days=1)
 
 day7 = tk.Frame(
     bottomFrame,
     bg="#a2cf8c",
-    )
+)
 day7.pack(
     side="left",
     expand=True,
@@ -616,7 +629,7 @@ day7.pack(
 day7.pack_propagate(False)
 day7date = tk.Label(
     day7,
-    text="\u26C8 Date", wraplength=150,
+    text=today, wraplength=150,
     bg="#a2cf8c",
     font=("Times", 20)
 )

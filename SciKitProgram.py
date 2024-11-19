@@ -8,6 +8,20 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, mean_squared_error, r2_score
+import json
+from pip import _vendor
+import pip._vendor.requests
+latitude = '39.1031'
+longitude = '-84.5120'
+#Base url for the Weather API
+BASE_URL ='https://api.weather.gov'
+USER_AGENT = "Weather API (nrothe22@gmail.com)"
+
+# Variables for GUI
+daytemp = []
+dayprecip = []
+dayvolunteer = []
+
 
 
 # Load the data
@@ -28,7 +42,7 @@ def load_data(file_path):
     data['preciptype'].fillna('none', inplace=True)
     data['windgust'].fillna(0, inplace=True)
     data['severerisk'].fillna(0, inplace=True)
-    data = data[['temp', 'precipprob', 'windgust', 'volunteers']]
+    data = data[['temp', 'precipprob', 'volunteers']]
     #data.fillna('none', inplace=True) 
     data.dropna(inplace=True)
     print(data)
@@ -90,25 +104,79 @@ def train_and_evaluate(X, y):
     joblib.dump(model, filename)
 
 # Predict Volunteers with Parameters
-def predict_volunteers(precipprob, temp, windgust):
-    features = np.array([[precipprob,temp, windgust]])
-    print(features)
+def predict_volunteers(precipprob, temp):
+    features = np.array([[precipprob, temp]])
     model = joblib.load('finalized_model.plk')
     prediction = model.predict(features)
-    print(prediction)
 
     return prediction[0]
 
 
+def get_weather_data(latitude,longitude):
+    headers = {
+    'User-Agent': USER_AGENT,
+    'Accept': 'application/ld+json'
+}
+    
+    url = f'{BASE_URL}/points/{latitude},{longitude}'
+    grid_response = _vendor.requests.get(url, headers=headers)
+    
+    if grid_response.status_code != 200:
+        print(f"Error fetching grid data: {grid_response.status_code}")
+    
+    grid_data = grid_response.json()
+    print(grid_data)
+    grid_id = grid_data['gridId']
+    grid_x = grid_data['gridX']
+    grid_y = grid_data['gridY']
+
+    # Get the forecast for the grid point
+    forecast_url = f"{BASE_URL}/gridpoints/ILN/{grid_x},{grid_y}/forecast"
+    forecast_response = _vendor.requests.get(forecast_url, headers=headers)
+    
+    if forecast_response.status_code != 200:
+        print(f"Error fetching forecast data: {forecast_response.status_code}")
+    
+    forecast_data = forecast_response.json()
+    
+    return forecast_data
+
+
+
+def display_forecast(forecast_data):
+    periods = forecast_data['periods']
+    print(f"Weather Forecast for Cincinnati, OH:\n")
+
+    num = 1
+    for period in periods:
+        temp = int(f"{period['temperature']}\n")
+        precip = f"{period['probabilityOfPrecipitation']}:\n"
+        volunteers = predict_volunteers(0, temp)
+        if num == 1:
+            num = 0
+            daytemp.append(temp)
+            dayprecip.append(precip)
+            dayvolunteer.append(volunteers)
+        else:
+            num = 1
+    
+
+
 # Main execution
 if __name__ == "__main__":
-    file_path = 'Weather.csv'
+    #file_path = 'Weather.csv'
     
-    data = load_data(file_path)
-    target_column = 'volunteers'  
+    #data = load_data(file_path)
+    #target_column = 'volunteers'  
     
-    X, y, categorical_cols, numerical_cols = preprocess_data(data, target_column)
-    train_and_evaluate(X, y)
+    #X, y, categorical_cols, numerical_cols = preprocess_data(data, target_column)
+    #train_and_evaluate(X, y)
 
-    predict_volunteers(60, 70, 1)
+    Real_forecast = get_weather_data(latitude, longitude)
+    display_forecast(Real_forecast)
+    print(daytemp)
+    print(dayprecip)
+    print(dayvolunteer)
     
+
+

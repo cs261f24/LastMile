@@ -166,7 +166,7 @@ def display_forecast(forecast_data):
 
 
 # Main execution
-if __name__ == "__main__":
+def SKL():
     #file_path = 'Weather.csv'
     
     #data = load_data(file_path)

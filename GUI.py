@@ -1,3 +1,4 @@
+from Bengals_API import odds_data
 from datetime import datetime, timedelta
 from Traffic_API import get_travel_delays
 from Traffic_API import *
@@ -6,6 +7,7 @@ import pip._vendor.requests as requests
 from Bengals_API import url
 from Bengals_API import params
 from Bengals_API import *
+from Bengals_API import conflictCheck
 import tkinter
 from tkinter import *
 import tkinter as tk
@@ -22,6 +24,7 @@ from Bengals_API import odds_data
 # for traffic API
 
 # For accurate dates
+todayDate = datetime.today().date()
 
 # Create main dashboard = tk.Tk()
 dash = tk.Tk()
@@ -177,7 +180,8 @@ if response.status_code == 200:
                 # This is the max line length before it splits into a new line
                 wraplength=300,
                 # THIS IS WHAT IS BEING PRINTED v
-                text=f"Game: {home_team} vs {away_team} " + f"Date: {game['commence_time']}",
+                text=f"Game: {home_team} vs {away_team} " + \
+                f"Date: {game['commence_time']}",
                 bg="#a2cf8c",
                 font=("Times", 15)
             )
@@ -233,11 +237,18 @@ if travel_delays_data:
         pady=5
     )
 
+# This part of the code checks if there is a Bengals game today
+# and returns true if there is a conflict
+
+
+def higherConflictCheck(todayDate):
+    todayString = todayDate.strftime("%Y-%m-%d")
+    return conflictCheck(todayString)
 
 # ---------------------------------------------------------------------------------------------
 
-# section 3 are volunter predictions for the CURRENT day
 
+# section 3 are volunter predictions for the CURRENT day
 section3 = tk.Frame(
     LeftMainFrame,
     bg="#a2cf8c",
@@ -331,11 +342,7 @@ bottomFrame.pack(
 
 # -------------------------------------------------------------------------------------------
 
-today = datetime.today().date()
-
 # smaller frames for the days of the week
-
-today += timedelta(days=1)
 
 day1 = tk.Frame(
     bottomFrame,
@@ -386,7 +393,10 @@ day1Est.pack(
     pady=3
 )
 
-today += timedelta(days=1)
+# The date is incremented and the conflict check is called again to account
+# for the new date
+todayDate += timedelta(days=1)
+higherConflictCheck(todayDate)
 
 day2 = tk.Frame(
     bottomFrame,
@@ -436,7 +446,10 @@ day2Est.pack(
     pady=3
 )
 
-today += timedelta(days=1)
+# The date is incremented and the conflict check is called again to account
+# for the new date
+todayDate += timedelta(days=1)
+higherConflictCheck(todayDate)
 
 day3 = tk.Frame(
     bottomFrame,
@@ -487,7 +500,10 @@ day3Est.pack(
     pady=3
 )
 
-today += timedelta(days=1)
+# The date is incremented and the conflict check is called again to account
+# for the new date
+todayDate += timedelta(days=1)
+higherConflictCheck(todayDate)
 
 day4 = tk.Frame(
     bottomFrame,
@@ -537,7 +553,10 @@ day4Est.pack(
     pady=3
 )
 
-today += timedelta(days=1)
+# The date is incremented and the conflict check is called again to account
+# for the new date
+todayDate += timedelta(days=1)
+higherConflictCheck(todayDate)
 
 day5 = tk.Frame(
     bottomFrame,
@@ -588,7 +607,10 @@ day5Est.pack(
     pady=3
 )
 
-today += timedelta(days=1)
+# The date is incremented and the conflict check is called again to account
+# for the new date
+todayDate += timedelta(days=1)
+higherConflictCheck(todayDate)
 
 day6 = tk.Frame(
     bottomFrame,
@@ -638,7 +660,10 @@ day6Est.pack(
     pady=3
 )
 
-today += timedelta(days=1)
+# The date is incremented and the conflict check is called again to account
+# for the new date
+todayDate += timedelta(days=1)
+higherConflictCheck(todayDate)
 
 day7 = tk.Frame(
     bottomFrame,

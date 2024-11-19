@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from Traffic_API import BASE_URL
 from Traffic_API import get_travel_delays
-from Traffic_API import get_traffic_data
 from Traffic_API import *
 import pip._vendor.requests as requests
 from Sports_API import url
@@ -11,6 +10,9 @@ import tkinter
 from tkinter import *
 import tkinter as tk
 import time
+from Traffic_API import travel_description
+from Traffic_API import location
+
 
 # For sports API
 import json
@@ -185,7 +187,7 @@ if response.status_code == 200:
             games = tk.Label(
                 section2,
                 wraplength=290,
-                text="No Bengals game today",
+                text="No game today",
                 bg="#a2cf8c",
                 font=("Times", 15)
             )
@@ -203,16 +205,10 @@ games.pack(
 )
 
 # Delays
-travel_delays_data = get_travel_delays()
-if travel_delays_data:
-    delays = tk.Label(
-        section2,
-        wraplength=300,
-        # Alter Line below when specific data has been found for traffic data
-        text="\nTravel Delays Data:" + \
-        json.dumps(travel_delays_data, indent=4),
-        bg="#a2cf8c",
-        font=("Times", 10)
+delays = tk.Label(
+    section2,
+    wraplength=280,
+    text=(json.dumps(travel_description, indent=4)),
     )
 delays.pack(
     pady=3
@@ -319,6 +315,9 @@ bottomFrame.pack(
 today = datetime.today().date()
 
 # smaller frames for the days of the week
+
+today += timedelta(days=1)
+
 day1 = tk.Frame(
     bottomFrame,
     bg="#a2cf8c",

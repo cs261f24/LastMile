@@ -1,17 +1,15 @@
 from datetime import datetime, timedelta
-from Traffic_API import BASE_URL
 from Traffic_API import get_travel_delays
 from Traffic_API import *
+from Traffic_API import get_traffic_data
 import pip._vendor.requests as requests
-from Sports_API import url
-from Sports_API import params
-from Sports_API import *
+from Bengals_API import url
+from Bengals_API import params
+from Bengals_API import *
 import tkinter
 from tkinter import *
 import tkinter as tk
 import time
-from Traffic_API import travel_description
-from Traffic_API import location
 
 
 # For sports API
@@ -19,7 +17,7 @@ import json
 from pip import _vendor
 import pip._vendor.requests
 API_KEY = '14b80439951ab21af79d41a1c8856a57'
-from Sports_API import odds_data
+from Bengals_API import odds_data
 
 # for traffic API
 
@@ -205,14 +203,35 @@ games.pack(
 )
 
 # Delays
-delays = tk.Label(
+Traffic_box = tk.Frame(
     section2,
-    wraplength=280,
-    text=(json.dumps(travel_description, indent=4)),
-    )
-delays.pack(
-    pady=3
 )
+Traffic_box.pack(
+    side="bottom"
+)
+v = Scrollbar(
+        Traffic_box,
+        orient="vertical"
+    )
+v.pack(
+        side="right",
+        fill="y",
+    )
+location = None
+get_travel_delays(location=None)
+travel_delays_data = get_travel_delays(location)
+if travel_delays_data:
+    travel_description = [item.get('description', 'No description') for item in travel_delays_data.get('results', [])]
+    delays = tk.Label(
+        Traffic_box,
+        wraplength=230,
+        text=(json.dumps(travel_description, indent=4)),
+    )
+    delays.pack(
+        fill=Y,
+        expand=True,
+        pady=5
+    )
 
 
 # ---------------------------------------------------------------------------------------------

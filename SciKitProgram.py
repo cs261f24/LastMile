@@ -9,6 +9,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, mean_squared_error, r2_score
 import json
+import random
 from pip import _vendor
 import pip._vendor.requests
 latitude = '39.1031'
@@ -152,11 +153,13 @@ def display_forecast(forecast_data):
         temp = int(f"{period['temperature']}\n")
         precip = f"{period['probabilityOfPrecipitation']}:\n"
         volunteers = predict_volunteers(0, temp)
+        # Test Purposes Random INT (POP Not working as INT)
+        random_int = random.randint(10, 40)
         if num == 1:
             num = 0
             daytemp.append(temp)
             dayprecip.append(precip)
-            dayvolunteer.append(volunteers)
+            dayvolunteer.append(volunteers + random_int)
         else:
             num = 1
     

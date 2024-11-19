@@ -674,9 +674,9 @@ day7Est.pack(
 
 # runs the code
 
-from SciKitProgram import SKL
+from SciKitProgram import Skl
 from SciKitProgram import daytemp, dayprecip, dayvolunteer
-SKL()
+Skl()
 dash.mainloop()
 
 # UNUSED: Will be used when program is turned into an actual application

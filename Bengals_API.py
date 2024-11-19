@@ -31,9 +31,9 @@ if response.status_code == 200:
             print(f"Date: {game['commence_time']}")
             print('---')
 
-    #Return no Bengals game if thee is one is not happening during request
+    #Return no Bengals game if one is not happening during request
     if 'Cincinnati Bengals' not in odds_data:
-        print("No Bengals game today")
+        print("No Cincinnati Bengals game today")
 
 else:
     print(f"Failed to fetch Bengals Game, Status Code: {response.status_code}")

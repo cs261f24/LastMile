@@ -85,5 +85,5 @@ def redsGameCheck(dateInput):
 
 
 # Made for test purposes, comment out when not in use
-dateInput = input("Enter a date in YYYY-MM-DD format: ")
-print(redsGameCheck(dateInput))
+# dateInput = input("Enter a date in YYYY-MM-DD format: ")
+# print(redsGameCheck(dateInput))

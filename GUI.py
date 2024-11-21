@@ -1,13 +1,13 @@
-from Bengals_API import odds_data
+from Sports_API import odds_data
 from datetime import datetime, timedelta
 from Traffic_API import get_travel_delays
 from Traffic_API import *
 from Traffic_API import get_traffic_data
 import pip._vendor.requests as requests
-from Bengals_API import url
-from Bengals_API import params
-from Bengals_API import *
-from Bengals_API import conflictCheck
+from Sports_API import url
+from Sports_API import params
+from Sports_API import *
+from Sports_API import conflictCheck
 import tkinter
 from tkinter import *
 import tkinter as tk
@@ -19,7 +19,7 @@ import json
 from pip import _vendor
 import pip._vendor.requests
 API_KEY = '14b80439951ab21af79d41a1c8856a57'
-from Bengals_API import odds_data
+from Sports_API import odds_data
 
 # for traffic API
 
@@ -197,8 +197,7 @@ else:
     games = tk.Label(
         section2,
         wraplength=300,
-        text=f"Failed to fetch Bengals Game, Status Code: {
-            response.status_code}",
+        text=f"Failed to fetch Bengals Game, Status Code: {response.status_code}",
         bg="#a2cf8c",
         font=("Times", 15)
     )

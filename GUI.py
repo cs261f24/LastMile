@@ -92,7 +92,7 @@ section1.pack_propagate(False)
 
 wheatherCond = tk.Label(
     section1,
-    text="Sunny",
+    text=dayprecip[0],
     bg="#a2cf8c",
     font=("Times", 30)
 )
@@ -110,7 +110,7 @@ tempAlert.pack(
 )
 tempHigh = tk.Label(
     section1,
-    text="H: " + "90",
+    text= daytemp[0],
     bg="#a2cf8c",
     font=(30)
 )
@@ -264,7 +264,7 @@ section3.pack_propagate(False)
 
 volunteerPred = tk.Label(
     section3,
-    text="Est. " + "?? " + "volunteers",
+    text = dayvolunteer[0],
     bg="#a2cf8c",
     font=("Times", 20)
 )
@@ -420,7 +420,7 @@ day2date.pack(
 )
 day2Hazard = tk.Label(
     day2,
-    text="NONE",
+    text=dayprecip[1],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -429,7 +429,7 @@ day2Hazard.pack(
 )
 day2High = tk.Label(
     day2,
-    text="H: " + "an Int",
+    text=daytemp[1],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -438,7 +438,7 @@ day2High.pack(
 )
 day2Est = tk.Label(
     day2,
-    text="15" + " / " "30 Volunteers",
+    text=dayvolunteer[1],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -474,7 +474,7 @@ day3date.pack(
 )
 day3Hazard = tk.Label(
     day3,
-    text="NONE",
+    text=dayprecip[2],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -483,7 +483,7 @@ day3Hazard.pack(
 )
 day3High = tk.Label(
     day3,
-    text="H: " + "an Int",
+    text=daytemp[2],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -492,7 +492,7 @@ day3High.pack(
 )
 day3Est = tk.Label(
     day3,
-    text="15" + " / " "30 Volunteers",
+    text=dayvolunteer[2],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -527,7 +527,7 @@ day4date.pack(
 )
 day4Hazard = tk.Label(
     day4,
-    text="NONE",
+    text=dayprecip[3],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -536,7 +536,7 @@ day4Hazard.pack(
 )
 day4High = tk.Label(
     day4,
-    text="H: " + "an Int",
+    text=daytemp[3],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -545,7 +545,7 @@ day4High.pack(
 )
 day4Est = tk.Label(
     day4,
-    text="15" + " / " "30 Volunteers",
+    text=dayvolunteer[3],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -581,7 +581,7 @@ day5date.pack(
 )
 day5Hazard = tk.Label(
     day5,
-    text="NONE",
+    text=dayprecip[4],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -590,7 +590,7 @@ day5Hazard.pack(
 )
 day5High = tk.Label(
     day5,
-    text="H: " + "an Int",
+    text=daytemp[4],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -599,7 +599,7 @@ day5High.pack(
 )
 day5Est = tk.Label(
     day5,
-    text="15" + " / " "30 Volunteers",
+    text=dayvolunteer[4],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -634,7 +634,7 @@ day6date.pack(
 )
 day6Hazard = tk.Label(
     day6,
-    text="NONE",
+    text=dayprecip[5],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -643,7 +643,7 @@ day6Hazard.pack(
 )
 day6High = tk.Label(
     day6,
-    text="H: " + "an Int",
+    text=daytemp[5],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -652,7 +652,7 @@ day6High.pack(
 )
 day6Est = tk.Label(
     day6,
-    text="15" + " / " "30 Volunteers",
+    text=dayvolunteer[5],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -688,7 +688,7 @@ day7date.pack(
 )
 day7Hazard = tk.Label(
     day7,
-    text="NONE",
+    text=dayprecip[6],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -697,7 +697,7 @@ day7Hazard.pack(
 )
 day7High = tk.Label(
     day7,
-    text="H: " + "an Int",
+    text=daytemp[6],
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -706,7 +706,7 @@ day7High.pack(
 )
 day7Est = tk.Label(
     day7,
-    text="15" + " / " "30 Volunteers",
+    text=dayvolunteer[6],
     bg="#a2cf8c",
     font=("Times", 15)
 )

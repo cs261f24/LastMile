@@ -1,3 +1,5 @@
+
+#Imports
 import joblib
 import numpy as np
 import pandas as pd
@@ -12,6 +14,8 @@ import json
 import random
 from pip import _vendor
 import pip._vendor.requests
+
+#Live Weather API Info
 latitude = '39.1031'
 longitude = '-84.5120'
 #Base url for the Weather API
@@ -30,12 +34,8 @@ def load_data(file_path):
     data = pd.read_csv(file_path)
     df1 = pd.read_csv("Weather.csv")
     df2 = pd.read_csv("LastMile.csv")
-
-    count = df2['date'].value_counts()['12/29/21']
-    #print (count)
-
+    
     df2['volunteers'] = df2.groupby('date')['date'].transform('count')
-    #print(df2)
     
     data = pd.merge(df1, df2, on='date')
     data = data.drop_duplicates(subset='date')
@@ -44,12 +44,10 @@ def load_data(file_path):
     data['windgust'].fillna(0, inplace=True)
     data['severerisk'].fillna(0, inplace=True)
     data = data[['temp', 'precipprob', 'volunteers']]
-    #data.fillna('none', inplace=True) 
     data.dropna(inplace=True)
     print(data)
     
     return data
-
 
 # Preprocess the data
 def preprocess_data(data, target_column):
@@ -112,7 +110,7 @@ def predict_volunteers(precipprob, temp):
 
     return prediction[0]
 
-
+# Live Weather API
 def get_weather_data(latitude,longitude):
     headers = {
     'User-Agent': USER_AGENT,
@@ -142,8 +140,7 @@ def get_weather_data(latitude,longitude):
     
     return forecast_data
 
-
-
+# Forecast Array Creation
 def display_forecast(forecast_data):
     periods = forecast_data['periods']
     print(f"Weather Forecast for Cincinnati, OH:\n")
@@ -163,10 +160,9 @@ def display_forecast(forecast_data):
         else:
             num = 1
     
-
-
 # Main execution
 def Skl():
+    # Marked out files create a new Model, Not neccesary unless new data is being used
     #file_path = 'Weather.csv'
     
     #data = load_data(file_path)

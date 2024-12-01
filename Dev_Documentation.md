@@ -45,3 +45,18 @@
     </ol>
 </p>
 
+## Documentation of SKLearn Model:
+<p>Information on what each section of the SciKitPorgram.py does:
+    <ol>
+        <li> First Section are simple imports that allow the SKLearn to run along with some imports for the live weather API.
+        <li> Live Weather API Info: URL and login information for the API along with location information.
+        <li> Variables for GUI: Array variables for weather and volunteer information for the GUI to use.
+        <li> Load Data: Reads in two seperate CSV files; Historic weather data and historic Last Mile data.  Creates a singular data frame using both files and combines the same day deliveries into one variable for each day known as volunteers.  The last part selects only the collumns used for the SKLearn Model.
+        <li> Preprocess Data: Create features and target data variables. Identifies categorical vs numerical data for the Pipeline
+        <li> Create Pipeline: Creates a pipeline that transforms the data into numerical data that can be used by the model.
+        <li> Train and Evaluate: Trains data using a Logistic Regression model and dumps model into finalized_model.plk
+        <li> Predict Volunteers: Creates function that takes parameters used in the model and outputs a volunteer prediction
+        <li> Get Weather Data: Retrieves Live Weather data from the API
+        <li> Display Forecast: Transforms weather data into 3 arrays, one for temprature, precipitation, and volunteer estimate. Precipitation data still in not int format
+    <ol>
+</p>

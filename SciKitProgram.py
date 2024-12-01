@@ -45,7 +45,6 @@ def load_data(file_path):
     data['severerisk'].fillna(0, inplace=True)
     data = data[['temp', 'precipprob', 'volunteers']]
     data.dropna(inplace=True)
-    print(data)
     
     return data
 

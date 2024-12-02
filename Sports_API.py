@@ -1,12 +1,19 @@
 import json
 from pip import _vendor
 import pip._vendor.requests
+from datetime import datetime
 
 API_KEY = '14b80439951ab21af79d41a1c8856a57'
 BASE_URL = 'https://api.the-odds-api.com/v4/sports'
 
 # List of teams to search for
-CINCINNATI_TEAMS = ["Cincinnati Bearcats","FC Cincinnati", "Cincinnati Bengals","Cincinnati Reds" ]
+CINCINNATI_TEAMS = ["Cincinnati Bearcats", "FC Cincinnati",
+                    "Cincinnati Bengals", "Cincinnati Reds"]
+
+
+# Array of game dates to be referenced against current date
+gameDates = []
+
 
 def get_sports(endpoint):
     """
@@ -42,20 +49,25 @@ def get_sports(endpoint):
                     print(f"Date: {game['commence_time']}")
                     print('---')
 
+                    # Adds dates of games to be referenced against current date
+                    gameDates.append(game['commence_time'])
+
             # If no games are found for Cincinnati teams
             if not found_games:
                 print(f"No games featuring Cincinnati teams in {endpoint}.")
         else:
-            print(f"Failed to fetch games for {endpoint}. Status Code: {response.status_code}")
+            print(f"Failed to fetch games for {
+                  endpoint}. Status Code: {response.status_code}")
 
     except _vendor.requests.RequestException as e:
         print(f"An error occurred: {e}")
 
+
 if __name__ == "__main__":
     sports_endpoints = [
-        'americanfootball_ncaaf', 
-        'soccer_usa_mls', 
-        'americanfootball_nfl', 
+        'americanfootball_ncaaf',
+        'soccer_usa_mls',
+        'americanfootball_nfl',
         'baseball_mlb'
     ]
 
@@ -63,4 +75,30 @@ if __name__ == "__main__":
         print(f"\nFetching games for {sport}...")
         get_sports(sport)
 
+# Converts datetime because they can't be compared with current date if it isn't modified
 
+
+def convertGame(gameDates, formattedGameDates):
+    for x in gameDates:
+        dateTimeObject = datetime.strptime(x, "%Y-%m-%dT%H:%M:%SZ")
+        modifiedDate = dateTimeObject.strftime("%Y-%m-%d")
+        formattedGameDates.append(modifiedDate)
+
+# Checks if there is a home game to update GUI with relevant data
+
+
+def conflictCheck(dateInput):
+    formattedGameDates = []
+
+    convertGame(gameDates, formattedGameDates)
+
+    for x in formattedGameDates:
+        if x == dateInput:
+            return True
+
+    return False
+
+
+# Made for test purposes, comment out when not in use
+dateInput = input("Enter a date in YYYY-MM-DD format: ")
+print(conflictCheck(dateInput))

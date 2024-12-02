@@ -150,7 +150,7 @@ def display_forecast(forecast_data):
         precip = f"{period['probabilityOfPrecipitation']}:\n"
         volunteers = predict_volunteers(0, temp)
         # Test Purposes Random INT (POP Not working as INT)
-        random_int = random.randint(10, 40)
+        random_int = random.randint(10, 30)
         if num == 1:
             num = 0
             daytemp.append(temp)

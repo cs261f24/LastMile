@@ -108,7 +108,7 @@ wheatherCond.pack(
 )
 tempAlert = tk.Label(
     section1,
-    text="BLACK ICE",
+    text="PARTLY CLOUDY",
     bg="#a2cf8c",
     font=(30)
 )
@@ -117,7 +117,7 @@ tempAlert.pack(
 )
 tempHigh = tk.Label(
     section1,
-    text= daytemp[0],
+    text= str(daytemp[0]) + ' Degrees',
     bg="#a2cf8c",
     font=(30)
 )
@@ -276,7 +276,7 @@ section3.pack_propagate(False)
 
 volunteerPred = tk.Label(
     section3,
-    text=dayvolunteer[0],
+    text=str(dayvolunteer[0]) + ' Volunteers',
     bg="#a2cf8c",
     font=("Times", 20)
 )
@@ -285,7 +285,7 @@ volunteerPred.pack(
 )
 totalVolunteers = tk.Label(
     section3,
-    text="# total",
+    text=str(dayvolunteer[0]) + " total",
     bg="#a2cf8c",
     font=("Times", 20)
 )
@@ -294,7 +294,7 @@ totalVolunteers.pack(
 )
 AbsentVolunteers = tk.Label(
     section3,
-    text="Expect " + "# " + "Absent",
+    text="Expect " + "2 - 7 " + "Absent",
     bg="#a2cf8c",
     font=("Times", 20)
 )
@@ -322,7 +322,7 @@ section4.pack_propagate(False)
 
 rescues = tk.Label(
     section4,
-    text="Est. " "#" + " Rescues",
+    text="Est. " "44" + " Rescues",
     bg="#a2cf8c",
     font=("Times", 20)
 )
@@ -331,7 +331,7 @@ rescues.pack(
 )
 donations = tk.Label(
     section4,
-    text="# of dono" + " Donations today",
+    text="3 Rescues cancelled today",
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -388,7 +388,7 @@ day1Hazard.pack(
 )
 day1High = tk.Label(
     day1,
-    text=daytemp[1],
+    text=str(daytemp[1]) + ' Degrees',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -397,7 +397,7 @@ day1High.pack(
 )
 day1Est = tk.Label(
     day1,
-    text=dayvolunteer[1],
+    text=str(dayvolunteer[1]) + ' Volunteers',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -441,7 +441,7 @@ day2Hazard.pack(
 )
 day2High = tk.Label(
     day2,
-    text=daytemp[2],
+    text=str(daytemp[2]) + ' Degrees',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -450,7 +450,7 @@ day2High.pack(
 )
 day2Est = tk.Label(
     day2,
-    text=dayvolunteer[2],
+    text=str(dayvolunteer[2]) + ' Volunteers',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -495,7 +495,7 @@ day3Hazard.pack(
 )
 day3High = tk.Label(
     day3,
-    text=daytemp[2],
+    text=str(daytemp[2]) + ' Degrees',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -504,7 +504,7 @@ day3High.pack(
 )
 day3Est = tk.Label(
     day3,
-    text=dayvolunteer[2],
+    text=str(dayvolunteer[3]) + ' Volunteers',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -548,7 +548,7 @@ day4Hazard.pack(
 )
 day4High = tk.Label(
     day4,
-    text=daytemp[3],
+    text=str(daytemp[3]) + ' Degrees',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -557,7 +557,7 @@ day4High.pack(
 )
 day4Est = tk.Label(
     day4,
-    text=dayvolunteer[3],
+    text=str(dayvolunteer[3]) + ' Volunteers',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -602,7 +602,7 @@ day5Hazard.pack(
 )
 day5High = tk.Label(
     day5,
-    text=daytemp[4],
+    text=str(daytemp[4]) + ' Degrees',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -611,7 +611,7 @@ day5High.pack(
 )
 day5Est = tk.Label(
     day5,
-    text=dayvolunteer[4],
+    text=str(dayvolunteer[4]) + ' Volunteers',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -655,7 +655,7 @@ day6Hazard.pack(
 )
 day6High = tk.Label(
     day6,
-    text=daytemp[5],
+    text=str(daytemp[5]) + ' Degrees',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -664,7 +664,7 @@ day6High.pack(
 )
 day6Est = tk.Label(
     day6,
-    text=dayvolunteer[5],
+    text=str(dayvolunteer[5]) + ' Volunteers',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -709,7 +709,7 @@ day7Hazard.pack(
 )
 day7High = tk.Label(
     day7,
-    text=daytemp[6],
+    text=str(daytemp[6]) + ' Degrees',
     bg="#a2cf8c",
     font=("Times", 15)
 )
@@ -718,7 +718,7 @@ day7High.pack(
 )
 day7Est = tk.Label(
     day7,
-    text=dayvolunteer[6],
+    text=str(dayvolunteer[6]) + ' Volunteers',
     bg="#a2cf8c",
     font=("Times", 15)
 )

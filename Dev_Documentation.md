@@ -164,7 +164,7 @@ dash.title("Last Mile Dashboard")
     bg="#213f69"
     )
 
-<img src="GUI2.png" alt="Picture of mainframes">
+<img src="GUI2.PNG" alt="Picture of mainframes">
 <li> Keep in mind that the .pack code directly after the frame code actually creates in and tells it how to be positioned as well as other properties.
 
 <br>

@@ -36,7 +36,7 @@ How to Navigate the Guided User Interface (GUI)
 </li>
 <br>
 
-<img src="GUI1.PNG" alt="GUI image"> 
+<img src="GUI1.png" alt="GUI image"> 
 
 <li> The top half is composed of a long horizontal bar and four sections. The bar displays the current date.
 </li>

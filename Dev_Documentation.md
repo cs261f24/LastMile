@@ -24,7 +24,7 @@
 </ol>
 
 ## Documentation of API's:
-<p>There are several different API's that this program runs on such as:
+<p><strong>There are several different API's that this program runs on such as:</strong>
     <ul>
         <li>Odds Data API.</li>
         <li>OHGO API.</li>
@@ -36,7 +36,7 @@
         <li>Sports_API.py for sports game information.
         <li>Weather_API.py for 7 days forecast with a chance of precipitation.
     </ol>
-<p>For running the API on your own:
+<p><strong>For running the API on your own:</strong>
     <ul> 
         <li>You will need to set up your account at each website</li>
         <li>With each website you will need to get your own API key</li>
